@@ -1,0 +1,11 @@
+data_source=1 
+num_docs=367 
+num_topics=100 
+num_iterations=100
+seed=7 
+alpha=0.5 
+beta=0.1 
+eta_0=2.0 
+eta_1=3.0 
+total_time=31610.8156149 
+total_hour=08:46:50 

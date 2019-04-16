@@ -57,6 +57,9 @@ Route::get('/system/event/workshops/Summer2018', 'System\Event\EventController@W
 // Upload API
 Route::post('/system/UploadAPI/uploadWorkflowInput', 'System\UploadAPI\UploadController@uploadWorkflowInput')->name('system.UploadAPI.uploadWorkflowInput');
 
+Route::get('/TopicModel', 'System\tmcontroller@tmcontroller')->name('system.recommender.tmview');
+
+
 Auth::routes();
 
 //logout
