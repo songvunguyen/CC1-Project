@@ -75,6 +75,7 @@ def load_model():
 
 
 def query(s="neuron simulation"):
+    output = []
     est_kw, est_kt, est_ks, vocabs, tools, datasets = load_model()
     words = s.split()
     ids = []
@@ -83,8 +84,9 @@ def query(s="neuron simulation"):
             ids.append(vocabs.index(w))
 
     if len(ids) == 0:
+        output.append({'id': 0, 'summary': '', 'tools': '', 'datasets': ''})
         print("no match topics")
-        return
+        return output
 
     num_topics = est_kw.shape[0]
     probs = []
@@ -120,22 +122,25 @@ def query(s="neuron simulation"):
             dataset_summary += datasets[ks_idx[j]]
             if j != NUM_PRINT_TERMS - 1:
                 dataset_summary += ', '
-
+        #load the query result into dictionary struct
+        output.append({"id": int(topics[i]), "summary": str(topic_summary), "tools": str(tool_summary), "datasets": str(dataset_summary)})
         print('\t topic %s : %s\n' % (topics[i], topic_summary))
         print('\t\t Suggested tools:  %s \n' % tool_summary)
         print('\t\t Suggested datasets: %s \n' % dataset_summary)
         print()
+    
+    return output
 
 
 def main():
-    # print("What can I help you with?")
-    # s = input()
-    s = str(sys.argv[1])
+    print("What can I help you with?")
+    s = input()
+    # s = str(sys.argv[1])
     query(s)
-    # while s != 'quit':
-    #     print('What can I help you with?')
-    #     s = input()
-    #     query(s)
+    while s != 'quit':
+        print('What can I help you with?')
+        s = input()
+        query(s)
 
 
 if __name__ == '__main__':

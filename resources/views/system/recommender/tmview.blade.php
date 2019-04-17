@@ -29,7 +29,7 @@ function output(input){
 <form method="GET" action="<?php $_PHP_SELF ?>">
 <!--https://www.w3schools.com/html/html_forms.asp-->
 <p>Input:</p>
-<input type="text" name="input" id="input">
+<input type="text" name="input" width=200% height=200%>
 <input type="submit" value="Get output" >
 </form>
 
