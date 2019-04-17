@@ -16,6 +16,12 @@ class QueryHandler(RequestHandler):
     self.write({'topics': topics})
 
 class ListTopics(RequestHandler):
+  #https://stackoverflow.com/questions/35254742/tornado-server-enable-cors-requests/49504274
+  def set_default_headers(self):
+    self.set_header("Access-Control-Allow-Origin", "*")
+    self.set_header("Access-Control-Allow-Headers", "content-type")
+    self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+  
   def post(self):
     global topics
     text = self.request.body
@@ -25,6 +31,13 @@ class ListTopics(RequestHandler):
       topics.append(json.loads(json.dumps(i)))
     
     self.write({'topics': topics})
+
+  def get(self):
+    self.write('some get')
+
+  def options(self):
+    self.set_status(204)
+    self.finish()
 
 def make_app():
   urls = [("/", QueryHandler),("/api/topics", ListTopics)]

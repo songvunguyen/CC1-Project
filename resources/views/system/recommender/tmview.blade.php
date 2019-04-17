@@ -12,7 +12,7 @@
 <div class="container">
 
 
-<!-- <script>
+<script>
 function output(){
 	//https://www.w3schools.com/php/php_ajax_php.asp
     //https://stackoverflow.com/questions/24468459/sending-a-json-to-server-and-retrieving-a-json-in-return-without-jquery
@@ -29,15 +29,15 @@ function output(){
         xmlhttp.setRequestHeader("Content-Type", "application/json");
         xmlhttp.send(text);
 }
-</script> -->
-<script>
+</script> 
+<!-- <script>
 function output(){
     var input = document.getElementById("input").value;
     var text = JSON.stringify({"text": input});
     document.getElementById("input").value = text;
     document.getElementById("myForm").submit();
 }
-</script>
+</script> -->
 
 <form method="POST" action="http://localhost:9000/api/topics" id="myForm">
 <!--https://www.w3schools.com/html/html_forms.asp-->
