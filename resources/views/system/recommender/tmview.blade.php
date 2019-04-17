@@ -11,40 +11,47 @@
 <section class='bg-light'>
 <div class="container">
 
-<!-- 
-<script>
-function output(input){
+
+<!-- <script>
+function output(){
 	//https://www.w3schools.com/php/php_ajax_php.asp
-	var xmlhttp = new XMLHttpRequest();
+    //https://stackoverflow.com/questions/24468459/sending-a-json-to-server-and-retrieving-a-json-in-return-without-jquery
+	//https://stackoverflow.com/questions/18441375/submit-form-field-values-to-a-javascript-function
+    var xmlhttp = new XMLHttpRequest();
+    var input = document.getElementById("input").value;
 	xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("output").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("POST", "TopicModel?input=" + input, true);
-        xmlhttp.send();
+        var text = JSON.stringify({"text": input});
+        xmlhttp.open("POST", "http://localhost:9000/api/topics", true);
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(text);
 }
 </script> -->
+<script>
+function output(){
+    var input = document.getElementById("input").value;
+    var text = JSON.stringify({"text": input});
+    document.getElementById("input").value = text;
+    document.getElementById("myForm").submit();
+}
+</script>
 
-<form method="GET" action="<?php $_PHP_SELF ?>">
+<form method="POST" action="http://localhost:9000/api/topics" id="myForm">
 <!--https://www.w3schools.com/html/html_forms.asp-->
 <p>Input:</p>
-<input type="text" name="input" width=200% height=200%>
-<input type="submit" value="Get output" >
+<input type="text" name="input" id="input">
+<input type="button" value="Get output" onclick="output()">
 </form>
 
-@php
-    if(isset($_GET["input"])){
-        $inputV = $_GET["input"];
-        $outputV = shell_exec("python3 \"/Users/Gtt/Desktop/CC1-Project/Topic Model/api.py\" "."\"".$inputV."\"");
-    }else{
-        $inputV = "";
-        $outputV = "";
-    }
-@endphp
+<!-- @php
+    $outputV = file_get_contents("http://localhost:9000/");
+@endphp -->
 </br>
 <p>Output</p>
-<span id="output">{{$outputV}}</span>
+<span id="output"></span>
 
 
 

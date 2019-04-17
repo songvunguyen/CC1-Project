@@ -8,6 +8,7 @@ import sys
 import numpy
 sys.path.append('/Users/Gtt/Desktop/CC1-Project/Topic Model')
 from api import *
+from urllib.parse import *
 topics = []
 
 class QueryHandler(RequestHandler):
@@ -18,12 +19,12 @@ class ListTopics(RequestHandler):
   def post(self):
     global topics
     text = self.request.body
-    text = str(text)
-    output = query(text[1:])
+    text = json.loads(text)
+    output = query(str(text['text']))
     for i in output:
       topics.append(json.loads(json.dumps(i)))
     
-    self.write({'message': 'Suggested topics successfully added'})
+    self.write({'topics': topics})
 
 def make_app():
   urls = [("/", QueryHandler),("/api/topics", ListTopics)]
